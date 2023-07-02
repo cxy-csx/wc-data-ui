@@ -1,7 +1,9 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside width="auto">
+        <Aside/>
+      </el-aside>
       <el-container>
         <el-header>Header</el-header>
         <el-main>
@@ -13,9 +15,13 @@
 </template>
 
 ​<script>
+import Aside from '../components/Aside.vue'
 export default {
   data() {
     return {};
+  },
+  components: {
+    Aside
   }
 };
 </script>
