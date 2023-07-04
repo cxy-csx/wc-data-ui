@@ -4,6 +4,7 @@
 
     <h3>微信公众号文章采集</h3>
 
+    <!--  表格  -->
     <el-table
         :data="tableData.list"
         border
@@ -11,20 +12,11 @@
         :cell-style="rowStyle"
     >
       <el-table-column
-          prop="title"
           label="文章标题"
-          align="center"
-      >
-      </el-table-column>
-
-
-      <el-table-column
-          label="文章链接"
           align="center"
       >
         <template v-slot="{ row }">
           <el-link type="success" :href="row.url" target="_blank">{{ row.title }}</el-link>
-<!--          <a ></a>-->
         </template>
       </el-table-column>
 
@@ -44,6 +36,7 @@
 
     </el-table>
 
+    <!--  分页  -->
     <div class="block" style="margin-top:15px;">
       <el-pagination
           @size-change="handleSizeChange"
@@ -56,6 +49,7 @@
       </el-pagination>
     </div>
 
+
   </div>
 
 </template>
@@ -67,13 +61,13 @@ export default {
   data() {
     return {
       tableData: {},
-      // currentPage: 1, // 当前页码
-      // total: 20, // 总条数
-      // pageSize: 2 // 每页的数据条数
+      currentPage: 1, // 当前页码
+      total: 20, // 总条数
+      pageSize: 2 // 每页的数据条数
     }
   },
   mounted() {
-    this.getLivestockInfo(1);  //因为刚加载显示第一页的数据，所以为1.
+    this.fetchData(1);  //因为刚加载显示第一页的数据，所以为1.
   },
   methods: {
     rowStyle() {
@@ -89,25 +83,21 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
       this.currentPage = val;
-      this.getLivestockInfo(val);
+      this.fetchData(val);
     },
-    getLivestockInfo(num1) {
-      console.log(this)
-      axios.get('http://127.0.0.1:5000/wx/wechat/getArticleList',
+    fetchData(start) {
+      axios.get('http://122.152.234.161:5000/wx/wechat/getArticleList',
           {
             params: {
-              start: num1
+              start: start
             }
           }
       ).then(resp => {
             this.tableData = resp.data.data;
-            this.currentPage=num1;
+            this.currentPage=start;
             this.pageSize=this.tableData.pageSize;
             this.total=this.tableData.total;
           }
-
-
-
       ).catch(error => {  // 请求失败
         console.log('请求失败');
         console.log(error);
