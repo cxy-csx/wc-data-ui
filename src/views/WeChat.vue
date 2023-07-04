@@ -10,6 +10,12 @@
         border
         style="width: 100%"
         :cell-style="rowStyle"
+        :header-cell-style="{
+            'font-weight': 'bold',
+            'color': 'black'
+            // 'color': 'rgb(103, 194, 58)',
+            // 'border-bottom': '1px rgb(103, 194, 58) solid'
+        }"
     >
       <el-table-column
           label="文章标题"
@@ -107,3 +113,7 @@ export default {
 
 }
 </script>
+
+<style>
+
+</style>
